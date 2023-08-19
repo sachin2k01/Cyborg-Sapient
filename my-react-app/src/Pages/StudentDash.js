@@ -23,6 +23,9 @@ import SchoolIcon from '@mui/icons-material/School';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import backgroundImg from '../Pages/dashboardbackground.jpg'; // Adjust the path as needed
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import AboutMe from '../Section/About';
+import TimeTablePage from '../Section/TimeTable';
 
 
 
@@ -48,7 +51,8 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
     backgroundImage: `url(${backgroundImg})`, // Set the background image here
     backgroundSize: 'full', // Adjust the background size
     backgroundPosition: 'center',
-    backgroundAttachment: 'scroll', // Adjust the background position
+    backgroundAttachment: 'scroll',
+    minHeight: '100vh', // Adjust the background position
   }),
 );
 
@@ -89,6 +93,8 @@ export default function StudentDashBoard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const Navigate= useNavigate();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -138,7 +144,7 @@ export default function StudentDashBoard() {
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding>
+            <ListItem disablePadding onClick={() => Navigate("/about")}>
               <ListItemButton>
                 <ListItemIcon>
                     <AccountCircleIcon/>
@@ -147,7 +153,7 @@ export default function StudentDashBoard() {
               </ListItemButton>
             </ListItem>
 
-            <ListItem disablePadding>
+            <ListItem disablePadding onClick={() => Navigate("/timetable")}>
               <ListItemButton>
                 <ListItemIcon>
                     <TableViewIcon/>
@@ -183,11 +189,14 @@ export default function StudentDashBoard() {
               </ListItemButton>
             </ListItem>
         </List>
+        <Routes><Route path="/about" element={<AboutMe />} />
+        <Route path='/timetable' element={<TimeTablePage />} />
+        </Routes>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
         
-        <h1><strong>WELCOME TO SCHOOL MANAGEMENT</strong></h1>
+        <h1><strong>WELCOME</strong></h1>
       </Main>
     </Box>
   );
